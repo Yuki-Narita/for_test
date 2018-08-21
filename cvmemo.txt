@@ -1,0 +1,129 @@
+if (image_transport_publisher_full_.getNumSubscribers() > 0){
+
+  //cv_img_full_.imageのポインタをmap_matを通してmap_mat_data_pに渡してる
+      cv::Mat* map_mat  = &cv_img_full_.image;
+
+      // resize cv image if it doesn't have the same dimensions as the map
+      if ( (map_mat->rows != size_y) && (map_mat->cols != size_x)){
+        *map_mat = cv::Mat(size_y, size_x, CV_8UC4);
+      }
+
+
+
+      const std::vector<int8_t>& map_data (map->data);
+
+      //unsigned char *map_mat_data_p=(unsigned char*) map_mat->data;
+      //cv::Mat* map_mat_p = *map_mat;
+
+      cv::Vec4b px;
+      px[0] = 255;
+      px[1] = 255;
+      px[2] = 255;
+      px[3] = 255;
+      map_mat->at<cv::Vec4b>(y,x) = px;
+
+      //We have to flip around the y axis, y for image starts at the top and y for map at the bottom
+      int size_y_rev = size_y-1;
+
+      //map_dataは左下から右上に向かって入っている
+      /*
+      ↑→→→→→→→→→→→→
+      ↑→→→→→→→→→→→→
+      ↑→→→→→→→→→→→→
+      */
+
+      for (int y = size_y_rev; y >= 0; --y){
+
+        int idx_map_y = size_x * (size_y -y);
+        int idx_img_y = size_x * y;
+
+        for (int x = 0; x < size_x; ++x){
+
+          int idx = idx_img_y + x;
+
+          switch (map_data[idx_map_y + x])
+          {
+          case -1:
+            map_mat_data_p[idx] = 127;
+            break;
+
+          case 0:
+            map_mat_data_p[idx] = 255;
+            break;
+
+          case 100:
+            map_mat_data_p[idx] = 0;
+            break;
+          }
+        }
+      }
+      image_transport_publisher_full_.publish(cv_img_full_.toImageMsg());
+    }
+
+int size_x = map->info.width;
+    int size_y = map->info.height;
+
+    if ((size_x < 3) || (size_y < 3) ){
+      ROS_INFO("Map size is only x: %d,  y: %d . Not running map to image conversion", size_x, size_y);
+      return;
+    }
+
+    // Only if someone is subscribed to it, do work and publish full map image
+    if (image_transport_publisher_full_.getNumSubscribers() > 0){
+      cv::Mat* map_mat  = &cv_img_full_.image;
+
+      // resize cv image if it doesn't have the same dimensions as the map
+      if ( (map_mat->rows != size_y) && (map_mat->cols != size_x)){
+        *map_mat = cv::Mat(size_y, size_x, CV_8UC4);
+      }
+
+      const std::vector<int8_t>& map_data (map->data);
+
+      //unsigned char *map_mat_data_p=(unsigned char*) map_mat->data;
+
+      //We have to flip around the y axis, y for image starts at the top and y for map at the bottom
+      int size_y_rev = size_y-1;
+
+      cv::Vec4b px;
+
+      for (int y = size_y_rev; y >= 0; --y){
+
+        int idx_map_y = size_x * (size_y -y);
+        int idx_img_y = size_x * y;
+
+        for (int x = 0; x < size_x; ++x){
+
+          int idx = idx_img_y + x;
+
+          switch (map_data[idx_map_y + x])
+          {
+          case -1:
+            //map_mat_data_p[idx] = 127;
+            px[0] = 255;
+            px[1] = 255;
+            px[2] = 255;
+            px[3] = 255;
+            break;
+
+          case 0:
+            //map_mat_data_p[idx] = 255;
+            px[0] = 255;
+            px[1] = 255;
+            px[2] = 255;
+            px[3] = 255;
+            break;
+
+          case 100:
+            //map_mat_data_p[idx] = 0;
+            px[0] = 255;
+            px[1] = 255;
+            px[2] = 255;
+            px[3] = 255;
+            break;
+          }
+
+          map_mat->at<cv::Vec4b>(idx_img_y,x) = px;
+        }
+      }
+      image_transport_publisher_full_.publish(cv_img_full_.toImageMsg());
+    }
