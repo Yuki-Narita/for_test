@@ -1,0 +1,4 @@
+http://wiki.ros.org/multimaster_fkie
+http://fkie.github.io/multimaster_fkie/
+http://www.iri.upc.edu/files/scidoc/1607-Multi-master-ROS-systems.pdf
+https://github.com/fkie/multimaster_fkie
