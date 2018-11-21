@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="for_test" type="dynamic_test" name="dynamic_test" output="screen">
+        <param name="init_pose_x" value="1.5"/>
+    </node>
+
+</launch>

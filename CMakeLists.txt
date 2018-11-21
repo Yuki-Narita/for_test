@@ -15,6 +15,9 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   std_msgs
   kobuki_msgs
+  dynamic_reconfigure
+  actionlib
+  move_base_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -92,10 +95,10 @@ find_package(catkin REQUIRED COMPONENTS
 ##     and list every .cfg file to be processed
 
 ## Generate dynamic reconfigure parameters in the 'cfg' folder
-# generate_dynamic_reconfigure_options(
-#   cfg/DynReconf1.cfg
+ generate_dynamic_reconfigure_options(
+   cfg/dynamic_test.cfg
 #   cfg/DynReconf2.cfg
-# )
+ )
 
 ###################################
 ## catkin specific configuration ##
@@ -204,3 +207,10 @@ include_directories(
 
 add_executable(check_yaw src/check_yaw.cpp)
 target_link_libraries(check_yaw ${catkin_LIBRARIES})
+
+add_executable(dynamic_test src/dynamic_test.cpp)
+add_dependencies(dynamic_test ${PROJECT_NAME}_gencfg)
+target_link_libraries(dynamic_test ${catkin_LIBRARIES})
+
+add_executable(action_voronoi_test src/action_voronoi_test.cpp)
+target_link_libraries(action_voronoi_test ${catkin_LIBRARIES})
