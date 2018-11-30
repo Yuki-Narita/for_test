@@ -1,0 +1,6 @@
+<launch>
+    <node pkg="for_test" type="action_voronoi_test" name="action_voronoi_test" output="screen">
+        <param name="move_base_node" value="move_base"/>
+        <param name="map_frame" value="map"/>
+    </node>
+</launch>

@@ -2,24 +2,24 @@
 #include <move_base_msgs/MoveBaseAction.h>
 #include <actionlib/client/simple_action_client.h>
 
-void moveToGoal(double goalX,double goalY ){
+void moveToGoal(double goalX,double goalY,std::string mapFrame,std::string movebaseNode ){
 
 	std::cout << "＊＊＊＊＊＊＊＊＊＊目標座標を受信＊＊＊＊＊＊＊＊＊＊" << std::endl;
 
 	//define a client for to send goal requests to the move_base server through a SimpleActionClient
 
 	//actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("robot1/move_base", true);
-	actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac("move_base", true);
+	actionlib::SimpleActionClient<move_base_msgs::MoveBaseAction> ac(movebaseNode, true);
 
 	//wait for the action server to come up//5.0秒まで待つ
-	while(!ac.waitForServer(ros::Duration(5.0))){
+	while(!ac.waitForServer(ros::Duration(5.0)) && ros::ok()){
 		std::cout << "＊＊＊＊＊＊＊＊＊＊待機中＊＊＊＊＊＊＊＊＊＊" << std::endl;;
 	}
 
 	move_base_msgs::MoveBaseGoal goal;
 
 	//set up the frame parameters
-	goal.target_pose.header.frame_id = "map";
+	goal.target_pose.header.frame_id = mapFrame;
 
 	goal.target_pose.header.stamp = ros::Time::now();
 
@@ -51,17 +51,25 @@ void moveToGoal(double goalX,double goalY ){
 
 
 int main(int argc, char** argv){
-	ros::init(argc, argv, "navigation_srv_limit");
+	ros::init(argc, argv, "action_voronoi_test");
 
     double x,y;
+	std::string mapFrame;
+	std::string movebaseNode;
+
+	ros::NodeHandle param("~");
+
+	param.getParam("map_frame", mapFrame);
+	param.getParam("movebaseNode", movebaseNode);
+
 
     while(ros::ok())
     {
-        std::cout << x << ":" ;
+        std::cout << "x : ";
         std::cin >> x;
-        std::cout << y << ":" ;
+        std::cout << "y : ";
         std::cin >> y;
-        moveToGoal(x,y);
+        moveToGoal(x,y,mapFrame,movebaseNode);
     }
 
 	return 0;
