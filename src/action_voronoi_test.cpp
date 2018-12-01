@@ -60,7 +60,7 @@ int main(int argc, char** argv){
 	ros::NodeHandle param("~");
 
 	param.getParam("map_frame", mapFrame);
-	param.getParam("movebaseNode", movebaseNode);
+	param.getParam("move_base_node", movebaseNode);
 
 
     while(ros::ok())

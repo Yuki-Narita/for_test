@@ -214,3 +214,7 @@ target_link_libraries(dynamic_test ${catkin_LIBRARIES})
 
 add_executable(action_voronoi_test src/action_voronoi_test.cpp)
 target_link_libraries(action_voronoi_test ${catkin_LIBRARIES})
+
+add_executable(fizzbuzz src/fizzbuzz.cpp)
+target_link_libraries(fizzbuzz ${catkin_LIBRARIES})
+
