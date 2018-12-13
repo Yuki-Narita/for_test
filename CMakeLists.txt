@@ -217,4 +217,6 @@ target_link_libraries(action_voronoi_test ${catkin_LIBRARIES})
 
 add_executable(fizzbuzz src/fizzbuzz.cpp)
 target_link_libraries(fizzbuzz ${catkin_LIBRARIES})
+add_executable(get_nodes src/get_nodes.cpp)
+target_link_libraries(get_nodes ${catkin_LIBRARIES})
 
