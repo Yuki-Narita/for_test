@@ -18,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   dynamic_reconfigure
   actionlib
   move_base_msgs
+  visualization_msgs
 )
 
 ## System dependencies are found with CMake's conventions
@@ -219,4 +220,7 @@ add_executable(fizzbuzz src/fizzbuzz.cpp)
 target_link_libraries(fizzbuzz ${catkin_LIBRARIES})
 add_executable(get_nodes src/get_nodes.cpp)
 target_link_libraries(get_nodes ${catkin_LIBRARIES})
+
+add_executable(draw_odom src/draw_odom.cpp)
+target_link_libraries(draw_odom ${catkin_LIBRARIES})
 
