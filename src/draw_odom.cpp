@@ -66,7 +66,14 @@ int main(int argc, char** argv){
     ros::init(argc, argv, "draw_odom");
 
     DrawOdom dr;
-    ros::spin();
+    
+    ros::Rate rate(1);
+    
+    while(ros::ok()){
+        ros::spinOnce();
+        rate.sleep();
+    }
+
 
     return 0;
 }

@@ -1,0 +1,4 @@
+<launch>
+<arg name="name" default="rosbag"/>
+    <node pkg="rosbag" type="record" name="rosbag_record" args="-o /home/rosdesk/rosbag/$(arg name) /robot1/map /robot2/map" output="screen"/>
+</launch>
