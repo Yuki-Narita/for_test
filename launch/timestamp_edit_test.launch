@@ -1,0 +1,16 @@
+<launch>
+    <node pkg="for_test" type="timestamp_edit_image" name="image_stamp">
+        <param name="sub_topic" value="/camera/image"/>
+        <param name="pub_topic" value="/republish_topic/camera/image"/>
+    </node>
+
+    <node pkg="for_test" type="timestamp_edit_odom" name="odom_stamp">
+        <param name="sub_topic" value="/odom"/>
+        <param name="pub_topic" value="/republish_topic/odom"/>
+    </node>
+
+    <node pkg="for_test" type="timestamp_edit_point" name="point_stamp">
+        <param name="sub_topic" value="/point"/>
+        <param name="pub_topic" value="/republish_topic/point"/>
+    </node>
+</launch>

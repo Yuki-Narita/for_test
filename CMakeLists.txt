@@ -224,3 +224,14 @@ target_link_libraries(get_nodes ${catkin_LIBRARIES})
 add_executable(draw_odom src/draw_odom.cpp)
 target_link_libraries(draw_odom ${catkin_LIBRARIES})
 
+add_executable(timestamp_edit_test src/timestamp_edit_test.cpp)
+target_link_libraries(timestamp_edit_test ${catkin_LIBRARIES})
+
+add_executable(timestamp_edit_odom src/timestamp_edit_odom.cpp)
+target_link_libraries(timestamp_edit_odom ${catkin_LIBRARIES})
+
+add_executable(timestamp_edit_point src/timestamp_edit_point.cpp)
+target_link_libraries(timestamp_edit_point ${catkin_LIBRARIES})
+
+add_executable(timestamp_edit_image src/timestamp_edit_image.cpp)
+target_link_libraries(timestamp_edit_image ${catkin_LIBRARIES})
