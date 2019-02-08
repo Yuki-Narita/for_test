@@ -1,10 +1,10 @@
 #include "timestamp_edit.h"
-#include <geometry_msgs/PointStamped.h>
+#include <sensor_msgs/Joy.h>
 
 int main(int argc, char** argv){
     ros::init(argc, argv, "timestamp_edit_point");
 
-    TimestampEdit<geometry_msgs::PointStamped> te;
+    TimestampEdit<sensor_msgs::Joy> te;
     
     ros::spin();
 

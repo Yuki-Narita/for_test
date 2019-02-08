@@ -1,10 +1,10 @@
 #include "timestamp_edit.h"
-#include <nav_msgs/Odometry.h>
+#include <sensor_msgs/PointCloud2.h>
 
 int main(int argc, char** argv){
     ros::init(argc, argv, "timestamp_edit_odom");
 
-    TimestampEdit<nav_msgs::Odometry> te;
+    TimestampEdit<sensor_msgs::PointCloud2> te;
     
     ros::spin();
 

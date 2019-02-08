@@ -77,7 +77,7 @@ void CheckYaw::OdomToYaw(const nav_msgs::Odometry::ConstPtr& sOMsg)
   yaw = 2*asin(yawMsg);
 
   std::cout << "yaw << " << yaw << " [rad] << " << yaw*180/M_PI << "[deg]" << '\n';
-  std::cout << "90[deg]との差 << " << yaw - M_PI/2 << "[rad] << " << (yaw - M_PI/2)*180/M_PI << "[deg]" << '\n';
+  //std::cout << "90[deg]との差 << " << yaw - M_PI/2 << "[rad] << " << (yaw - M_PI/2)*180/M_PI << "[deg]" << '\n';
 }
 
 void CheckYaw::pubVelocity(void)
@@ -123,19 +123,22 @@ int main (int argc, char** argv)
   CheckYaw cy;
 
 /*モータリセット用のsleep*/
-  sleep(1);
-  cy.motorReset();
+  //sleep(1);
+  //cy.motorReset();
+
+  ros::Rate rate(1);
 
   while(ros::ok())
   {
     //オドメトリをサブスクライブしてコールバック関数を呼び出す
     cy.queueO.callOne(ros::WallDuration(1));//数値はトピックの更新を待つ最大時間[s]
     //速度を送る関数
-    cy.pubVelocity();
-    if(!cy.isMotor())
-    {
-      break;
-    }
+    //cy.pubVelocity();
+    //if(!cy.isMotor())
+    //{
+      //break;
+    //}
+    rate.sleep();
   }
 
   std::cout << "finish program" << '\n';
