@@ -19,6 +19,9 @@ find_package(catkin REQUIRED COMPONENTS
   actionlib
   move_base_msgs
   visualization_msgs
+  costmap_2d
+  tf2_ros
+  voronoi_planner
 )
 
 ## System dependencies are found with CMake's conventions
@@ -126,6 +129,7 @@ catkin_package(
 include_directories(
 # include
   ${catkin_INCLUDE_DIRS}
+
 )
 
 ## Declare a C++ library
@@ -206,6 +210,9 @@ include_directories(
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
 
+
+
+
 add_executable(check_yaw src/check_yaw.cpp)
 target_link_libraries(check_yaw ${catkin_LIBRARIES})
 
@@ -235,3 +242,19 @@ target_link_libraries(timestamp_edit_point ${catkin_LIBRARIES})
 
 add_executable(timestamp_edit_image src/timestamp_edit_image.cpp)
 target_link_libraries(timestamp_edit_image ${catkin_LIBRARIES})
+
+add_library(costmap_2d
+  costmap_src/array_parser.cpp
+  costmap_src/costmap_2d.cpp
+  costmap_src/observation_buffer.cpp
+  costmap_src/layer.cpp
+  costmap_src/layered_costmap.cpp
+  costmap_src/costmap_2d_ros.cpp
+  costmap_src/costmap_2d_publisher.cpp
+  costmap_src/costmap_math.cpp
+  costmap_src/footprint.cpp
+  costmap_src/costmap_layer.cpp
+)
+
+add_executable(voronoi_test src/voronoi_test.cpp)
+target_link_libraries(voronoi_test costmap_2d ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
