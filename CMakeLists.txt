@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 2.8.3)
 project(for_test)
 
 ## Compile as C++11, supported in ROS Kinetic and newer
-# add_compile_options(-std=c++11)
+add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
@@ -22,6 +22,7 @@ find_package(catkin REQUIRED COMPONENTS
   costmap_2d
   tf2_ros
   voronoi_planner
+  dynamicvoronoi
 )
 
 ## System dependencies are found with CMake's conventions
@@ -256,5 +257,9 @@ add_library(costmap_2d
   costmap_src/costmap_layer.cpp
 )
 
-add_executable(voronoi_test src/voronoi_test.cpp)
-target_link_libraries(voronoi_test costmap_2d ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+add_library(voronoi
+  voronoi_src/planner_core.cpp
+)
+
+add_executable(voronoi_test src/voronoi_test.cpp )
+target_link_libraries(voronoi_test costmap_2d voronoi ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
