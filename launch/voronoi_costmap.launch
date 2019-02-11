@@ -8,15 +8,25 @@
 	<arg name="base_frame_id"   default="$(arg robot_name)/base_footprint"/>
   	<arg name="global_frame_id" default="$(arg robot_name)/map"/>
 
-	<param name="costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+	<arg name="topic_ns" default="costmap_to_voronoi"/>
+
+	<!-- <param name="costmap/robot_base_frame" value="$(arg base_frame_id)"/> -->
 
 	<group ns="$(arg robot_name)">
 
-	<node pkg="for_test" type="voronoi_test" name="voronoi_test" output="screen">
+	<!-- <node pkg="for_test" type="voronoi_test" name="voronoi_test" output="screen">
 		<rosparam file="$(find for_test)/params/costmap_common_params.yaml" command="load" ns="costmap"/>
 		<rosparam file="$(find for_test)/params/global_costmap_params.yaml" command="load"/>
 		<param name="costmap/global_frame" value="$(arg global_frame_id)"/>
     	<param name="costmap/robot_base_frame" value="$(arg base_frame_id)"/>
+	</node> -->
+
+	<node pkg="for_test" type="voronoi_header" name="voronoi_header" output="screen">
+		<rosparam file="$(find for_test)/params/costmap_common_params.yaml" command="load" ns="$(arg topic_ns)"/>
+		<rosparam file="$(find for_test)/params/global_costmap_params.yaml" command="load" ns="$(arg topic_ns)"/>
+		<param name="$(arg topic_ns)/global_frame" value="$(arg global_frame_id)"/>
+    	<param name="$(arg topic_ns)/robot_base_frame" value="$(arg base_frame_id)"/>
+		<param name="topic_ns" value="$(arg topic_ns)"/>
 	</node>
 
 	</group>

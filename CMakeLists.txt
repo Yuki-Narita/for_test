@@ -128,7 +128,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 include_directories(
-# include
+ include
   ${catkin_INCLUDE_DIRS}
 
 )
@@ -244,22 +244,25 @@ target_link_libraries(timestamp_edit_point ${catkin_LIBRARIES})
 add_executable(timestamp_edit_image src/timestamp_edit_image.cpp)
 target_link_libraries(timestamp_edit_image ${catkin_LIBRARIES})
 
-add_library(costmap_2d
-  costmap_src/array_parser.cpp
-  costmap_src/costmap_2d.cpp
-  costmap_src/observation_buffer.cpp
-  costmap_src/layer.cpp
-  costmap_src/layered_costmap.cpp
-  costmap_src/costmap_2d_ros.cpp
-  costmap_src/costmap_2d_publisher.cpp
-  costmap_src/costmap_math.cpp
-  costmap_src/footprint.cpp
-  costmap_src/costmap_layer.cpp
-)
+# add_library(costmap_2d
+#   include/costmap_src/array_parser.cpp
+#   include/costmap_src/costmap_2d.cpp
+#   include/costmap_src/observation_buffer.cpp
+#   include/costmap_src/layer.cpp
+#   include/costmap_src/layered_costmap.cpp
+#   include/costmap_src/costmap_2d_ros.cpp
+#   include/costmap_src/costmap_2d_publisher.cpp
+#   include/costmap_src/costmap_math.cpp
+#   include/costmap_src/footprint.cpp
+#   include/costmap_src/costmap_layer.cpp
+# )
 
-add_library(voronoi
-  voronoi_src/planner_core.cpp
-)
+# add_library(voronoi
+#   include/voronoi_src/planner_core.cpp
+# )
 
-add_executable(voronoi_test src/voronoi_test.cpp )
-target_link_libraries(voronoi_test costmap_2d voronoi ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+# add_executable(voronoi_test src/voronoi_test.cpp )
+# target_link_libraries(voronoi_test costmap_2d voronoi ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
+
+add_executable(voronoi_header src/voronoi_header.cpp)
+target_link_libraries(voronoi_header ${PCL_LIBRARIES} ${catkin_LIBRARIES} ${Boost_LIBRARIES})
