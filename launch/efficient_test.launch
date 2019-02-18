@@ -1,0 +1,5 @@
+<launch>
+    <node pkg="multi_planning_server" type="Frontier_Search" name="Frontier_Search" output="screen">
+        <remap from="/server/grid_map_merge/merge_map" to="/robot1/map"/>
+    </node>
+</launch>
